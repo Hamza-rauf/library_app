@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onSelected: (result) {
                 if (result == 2) {
                   setState(() {
-                    fileList.removeWhere(
+                    provider.fileListProvider.removeWhere(
                         (item) => item.fileName == element.fileName);
                     // fileList.remove(element.fileName);
                   });
