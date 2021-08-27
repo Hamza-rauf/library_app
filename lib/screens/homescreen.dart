@@ -56,23 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
         itemComparator: (item1, item2) =>
             item1.fileName.compareTo(item2.fileName),
         order: GroupedListOrder.DESC,
-        useStickyGroupSeparators: false,
+        useStickyGroupSeparators: true,
         groupSeparatorBuilder: (String value) => Padding(
           padding: const EdgeInsets.only(right: 60),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                value,
-                textAlign: TextAlign.start,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Divider(
-                thickness: 0.5,
-                color: Colors.black,
-              )
-            ],
+          child: Text(
+            value,
+            textAlign: TextAlign.start,
+            style:
+                const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         itemBuilder: (c, element) {
@@ -144,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  String I = "FaIcon(FontAwesomeIcons.fileWord)";
+
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<MyProvider>(context);
@@ -169,24 +160,25 @@ class _HomeScreenState extends State<HomeScreen> {
         // });
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
           child: LayoutBuilder(
             builder: (context, constraints) {
               if (constraints.maxWidth >= 1100) {
                 ///Desktop
-                return buildrenderItem(40, 100, 500, 10);
+                return buildrenderItem(100, 100, 800, 10);
               }
               // If width it less then 1100 and more then 650 we consider it as tablet
               else if (constraints.maxWidth >= 650) {
                 //Tablet
 
-                return buildrenderItem(100, 100, 300, 10);
+                return buildrenderItem(100, 100, 400, 10);
               }
               //Mobile
 
               // Or less then that we called it mobile
               else {
-                return buildrenderItem(20, 100, 100, 10);
+                return buildrenderItem(20, 20, 20, 10);
               }
             },
           ),
@@ -199,8 +191,8 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: _incrementCounter,
           tooltip: 'Add File',
         ),
-        /*floatingActionButtonLocation:
-        FloatingActionButtonLocation.centerFloat,*/ // This trailing comma makes auto-formatting nicer for build methods.
+        floatingActionButtonLocation:
+        FloatingActionButtonLocation.centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
