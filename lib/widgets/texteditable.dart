@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_app/provider/myprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -20,14 +21,28 @@ class _TextEditAbleState extends State<TextEditAble> {
     super.initState();
   }
 
+  var focusNode;
+  void getData() {
+    focusNode = FocusNode(onKey: (node, event) {
+      if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
+        provider.updateList();
+      } else if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
+        provider.updateList();
+      }
+      return KeyEventResult.ignored;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getData();
     provider.editingController = TextEditingController();
 
     if (provider.isEditingText) {
       return TextFormField(
+        focusNode: focusNode,
         keyboardType: TextInputType.multiline,
-        textInputAction: TextInputAction.done,
+        textInputAction: TextInputAction.search,
         autofocus: true,
         controller: provider.editingController,
       );
@@ -41,6 +56,7 @@ class _TextEditAbleState extends State<TextEditAble> {
         },
         child: Text(
           provider.name,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 18.0,

@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/model/filemodel.dart';
 
 class MyProvider with ChangeNotifier {
   bool isEditingText = false;
   String name = "";
   int index = 0;
-   TextEditingController editingController = TextEditingController();
+  List<FileModel> fileListProvider = [];
+  TextEditingController editingController = TextEditingController();
+  void updateList() {
+    if (editingController.text.isNotEmpty) {
+      fileListProvider.forEach((element) {
+        if (element.index == index) {
+          {
+            element.group = editingController.text[0].toUpperCase();
+            element.fileName = editingController.text;
+            isEditingText = false;
+          }
+        }
+      });
+    }
+    notifyListeners();
+  }
+
 }
