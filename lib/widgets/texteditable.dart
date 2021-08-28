@@ -25,9 +25,23 @@ class _TextEditAbleState extends State<TextEditAble> {
   void getData() {
     focusNode = FocusNode(onKey: (node, event) {
       if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-        provider.updateList();
+        if (provider.editingController.text.isNotEmpty) {
+          provider.updateList();
+        } else {
+          setState(() {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Please fill the text")));
+          });
+        }
       } else if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-        provider.updateList();
+        if (provider.editingController.text.isNotEmpty) {
+          provider.updateList();
+        } else {
+          setState(() {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Please fill the text")));
+          });
+        }
       }
       return KeyEventResult.ignored;
     });

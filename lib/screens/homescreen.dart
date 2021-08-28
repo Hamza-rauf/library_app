@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (result != null && randomNumber != provider.index) {
       setState(() {
-         provider.fileListProvider.add(FileModel(
+        provider.fileListProvider.add(FileModel(
           index: randomNumber,
           group: result.files.first.name[0].toUpperCase(),
           fileExtention: result.files.first.extension.toString(),
@@ -62,8 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Text(
             value,
             textAlign: TextAlign.start,
-            style:
-                const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
         itemBuilder: (c, element) {
@@ -135,7 +134,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<MyProvider>(context);
@@ -151,6 +149,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 provider.isEditingText = false;
               });
             }
+          });
+        } else {
+          setState(() {
+            provider.isEditingText = false;
           });
         }
 
@@ -191,8 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: _incrementCounter,
           tooltip: 'Add File',
         ),
-        floatingActionButtonLocation:
-        FloatingActionButtonLocation.centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
+        floatingActionButtonLocation: FloatingActionButtonLocation
+            .centerFloat, // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

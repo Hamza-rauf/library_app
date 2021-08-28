@@ -8,18 +8,17 @@ class MyProvider with ChangeNotifier {
   List<FileModel> fileListProvider = [];
   TextEditingController editingController = TextEditingController();
   void updateList() {
-    if (editingController.text.isNotEmpty) {
-      fileListProvider.forEach((element) {
-        if (element.index == index) {
-          {
-            element.group = editingController.text[0].toUpperCase();
-            element.fileName = editingController.text;
-            isEditingText = false;
-          }
+    fileListProvider.forEach((element) {
+      if (element.index == index) {
+        {
+          element.group = editingController.text[0].toUpperCase();
+          element.fileName = editingController.text;
+          isEditingText = false;
+          // editingController.clear();
         }
-      });
-    }
+      }
+    });
+
     notifyListeners();
   }
-
 }
