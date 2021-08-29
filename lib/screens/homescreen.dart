@@ -126,7 +126,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            title: TextEditAble(element.fileName.toString(), element.index),
+            title: TextEditAble(element.fileName.toString(),
+              element.index,
+              ),
             leading: listTitleIcon(element),
           );
         },

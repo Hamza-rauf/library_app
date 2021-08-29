@@ -70,7 +70,9 @@ class _TextEditAbleState extends State<TextEditAble> {
         },
         child: Text(
           provider.name,
-          overflow: TextOverflow.ellipsis,
+          overflow: TextOverflow.fade,
+          maxLines: 1,
+          softWrap: false,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 18.0,
