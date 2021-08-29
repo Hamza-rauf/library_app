@@ -58,11 +58,11 @@ class _HomeScreenState extends State<HomeScreen> {
         order: GroupedListOrder.DESC,
         useStickyGroupSeparators: true,
         groupSeparatorBuilder: (String value) => Padding(
-          padding: const EdgeInsets.only(right: 60),
+          padding: const EdgeInsets.only(left: 15),
           child: Text(
             value,
             textAlign: TextAlign.start,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
         itemBuilder: (c, element) {
