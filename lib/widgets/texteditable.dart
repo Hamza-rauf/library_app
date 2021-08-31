@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:library_app/provider/myprovider.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
+import 'package:library_app/controller/home_controller.dart';
 
 class TextEditAble extends StatefulWidget {
   String title;
@@ -12,11 +12,9 @@ class TextEditAble extends StatefulWidget {
 }
 
 class _TextEditAbleState extends State<TextEditAble> {
-  late MyProvider provider;
   @override
   void initState() {
-    provider = Provider.of<MyProvider>(context, listen: false);
-    provider.name = widget.title;
+    Get.find<HomeController>().name = widget.title;
 
     super.initState();
   }
@@ -25,8 +23,8 @@ class _TextEditAbleState extends State<TextEditAble> {
   void getData() {
     focusNode = FocusNode(onKey: (node, event) {
       if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
-        if (provider.editingController.text.isNotEmpty) {
-          provider.updateList();
+        if (Get.find<HomeController>().editingController.text.isNotEmpty) {
+          Get.find<HomeController>().updateList();
         } else {
           setState(() {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -34,8 +32,8 @@ class _TextEditAbleState extends State<TextEditAble> {
           });
         }
       } else if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-        if (provider.editingController.text.isNotEmpty) {
-          provider.updateList();
+        if (Get.find<HomeController>().editingController.text.isNotEmpty) {
+          Get.find<HomeController>().updateList();
         } else {
           setState(() {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -50,33 +48,36 @@ class _TextEditAbleState extends State<TextEditAble> {
   @override
   Widget build(BuildContext context) {
     getData();
-    provider.editingController = TextEditingController();
+    Get.find<HomeController>().editingController = TextEditingController();
 
-    if (provider.isEditingText) {
+    if (Get.find<HomeController>().isEditingText) {
       return TextFormField(
         focusNode: focusNode,
         keyboardType: TextInputType.multiline,
         textInputAction: TextInputAction.search,
         autofocus: true,
-        controller: provider.editingController,
+        controller: Get.find<HomeController>().editingController,
       );
     }
-    return InkWell(
-        onDoubleTap: () {
-          setState(() {
-            provider.isEditingText = true;
-            provider.index = widget.index;
-          });
-        },
-        child: Text(
-          provider.name,
-          overflow: TextOverflow.fade,
-          maxLines: 1,
-          softWrap: false,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 18.0,
-          ),
-        ));
+    return GetBuilder(
+      init: HomeController(),
+      builder: (HomeController _homeController) => InkWell(
+          onDoubleTap: () {
+            setState(() {
+              _homeController.isEditingText = true;
+              _homeController.index = widget.index;
+            });
+          },
+          child: Text(
+            _homeController.name,
+            overflow: TextOverflow.fade,
+            maxLines: 1,
+            softWrap: false,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 18.0,
+            ),
+          )),
+    );
   }
 }
